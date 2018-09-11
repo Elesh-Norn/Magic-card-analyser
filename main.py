@@ -2,15 +2,14 @@ import tkinter as tk
 from tkinter import ttk
 import matplotlib
 matplotlib.use("TkAgg")
+import seaborn as sns
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
-from mtgsdk import Card
+from card_fetcher import get_random_prices
 
 # GLOBALS
 LARGE_FONT= ("Verdana", 12)
 
-card = Card.where(name='Vampire neonate').all()
-print(card)
 
 class The_app(tk.Tk):
 
@@ -113,8 +112,9 @@ class PageThree(tk.Frame):
         button1.pack()
 
         f = Figure(figsize=(5,5), dpi=100)
-        a = f.add_subplot(111)
-        a.plot([1,2,3,4,5,6,7,8],[5,6,1,3,8,9,3,5])
+        ax1 = f.add_subplot(111)
+        df = get_random_prices()
+        sns.boxplot(x='Rarity',y='Price', data=df, ax=ax1)
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
