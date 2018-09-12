@@ -5,10 +5,10 @@ matplotlib.use("TkAgg")
 import seaborn as sns
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
-from card_fetcher import get_random_prices
+from card_fetcher import get_set
 
 # GLOBALS
-LARGE_FONT= ("Verdana", 12)
+LARGE_FONT = ("Verdana", 12)
 
 
 class The_app(tk.Tk):
@@ -17,7 +17,7 @@ class The_app(tk.Tk):
         # Inherited class init
         tk.Tk.__init__(self, *args, **kwargs)
 
-        tk.Tk.iconbitmap(self, default='fox_icon.ico')
+        tk.Tk.iconbitmap(self, default="fox_icon.ico")
         tk.Tk.wm_title(self, "MagicApp")
 
         container = tk.Frame(self)
@@ -28,7 +28,7 @@ class The_app(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         # Dictionary of different frames
-        self.frames ={}
+        self.frames = {}
 
         for F in (StartPage, PageOne, PageTwo, PageThree):
 
@@ -111,10 +111,11 @@ class PageThree(tk.Frame):
                                  StartPage))
         button1.pack()
 
-        f = Figure(figsize=(5,5), dpi=100)
+        f = Figure(figsize=(5, 5), dpi=100)
         ax1 = f.add_subplot(111)
-        df = get_random_prices()
-        sns.boxplot(x='Rarity',y='Price', data=df, ax=ax1)
+        df = get_set('m19')
+        sns.boxplot(x='rarity', y='usd', data=df, ax=ax1)
+        sns.swarmplot(x='rarity', y='usd', data=df, ax=ax1, color='k')
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
@@ -123,6 +124,7 @@ class PageThree(tk.Frame):
         toolbar = NavigationToolbar2TkAgg(canvas, self)
         toolbar.update()
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
 
 app = The_app()
 app.mainloop()
