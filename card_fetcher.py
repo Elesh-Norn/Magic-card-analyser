@@ -19,6 +19,7 @@ def get_all_card_from_search(url):
     else:
         return temp_dic["data"]
 
+
 def get_set(set):
     """Search for card in a set (3 letter string)
     Return a panda dataframe with card name, price in usd, rarity and set

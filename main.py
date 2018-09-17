@@ -5,7 +5,8 @@ matplotlib.use("TkAgg")
 import seaborn as sns
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
-from card_fetcher import get_set
+import card_fetcher
+import Graph_functions
 
 # GLOBALS
 LARGE_FONT = ("Verdana", 12)
@@ -57,12 +58,12 @@ class StartPage(tk.Frame):
                                PageOne))
         button.pack()
 
-        button2 = ttk.Button(self, text='Visit Page 2',
+        button2 = ttk.Button(self, text='Pie Plot',
                             command=lambda: controller.show_frame(
                                 PageTwo))
         button2.pack()
 
-        button3 = ttk.Button(self, text='Gimme the graph shit',
+        button3 = ttk.Button(self, text='Boxplot',
                              command=lambda: controller.show_frame(PageThree))
         button3.pack()
 
@@ -98,6 +99,19 @@ class PageTwo(tk.Frame):
                             command=lambda: controller.show_frame(PageOne))
         button2.pack()
 
+        f = Figure(figsize=(5, 5), dpi=100)
+        df = card_fetcher.get_set('m19')
+
+
+
+        canvas = FigureCanvasTkAgg(Graph_functions.pie_graph(df, "rarity"), self)
+        canvas.show()
+        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+
+        toolbar = NavigationToolbar2TkAgg(canvas, self)
+        toolbar.update()
+        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
 
 class PageThree(tk.Frame):
 
@@ -113,9 +127,9 @@ class PageThree(tk.Frame):
 
         f = Figure(figsize=(5, 5), dpi=100)
         ax1 = f.add_subplot(111)
-        df = get_set('m19')
-        sns.boxplot(x='rarity', y='usd', data=df, ax=ax1)
-        sns.swarmplot(x='rarity', y='usd', data=df, ax=ax1, color='k')
+        df = card_fetcher.get_set('m19')
+
+        Graph_functions.swarmplot(df, "rarity", "usd", ax1)
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
