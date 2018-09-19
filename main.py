@@ -18,7 +18,7 @@ class The_app(tk.Tk):
         # Inherited class init
         tk.Tk.__init__(self, *args, **kwargs)
 
-        tk.Tk.iconbitmap(self, default="fox_icon.ico")
+        #tk.Tk.iconbitmap(self, default="fox_icon.ico")
         tk.Tk.wm_title(self, "MagicApp")
 
         container = tk.Frame(self)
@@ -99,9 +99,7 @@ class PageTwo(tk.Frame):
                             command=lambda: controller.show_frame(PageOne))
         button2.pack()
 
-        f = Figure(figsize=(5, 5), dpi=100)
-        df = card_fetcher.get_set('m19')
-
+        df = card_fetcher.get_all_standard()
 
 
         canvas = FigureCanvasTkAgg(Graph_functions.pie_graph(df, "rarity"), self)
@@ -125,13 +123,8 @@ class PageThree(tk.Frame):
                                  StartPage))
         button1.pack()
 
-        f = Figure(figsize=(5, 5), dpi=100)
-        ax1 = f.add_subplot(111)
         df = card_fetcher.get_set('m19')
-
-        Graph_functions.swarmplot(df, "rarity", "usd", ax1)
-
-        canvas = FigureCanvasTkAgg(f, self)
+        canvas = FigureCanvasTkAgg(Graph_functions.swarmplot(df, "rarity", "usd"), self)
         canvas.show()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
