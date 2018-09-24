@@ -1,11 +1,20 @@
 import Graph_functions
 import matplotlib.pyplot as plt
+import numpy
+import card_fetcher
+import pandas as pd
 
-a = [5, 10, 15, 20, 25]
-b = [22, 38, 39, 45, 60]
-c = [-5, 8, 10, 42, 24]
-d = [21, 38, 42, 53, 60]
+import unittest
 
-Graph_functions.lineplot(a, b)
-Graph_functions.lineplot(c, d)
-plt.show()
+class TestAPIgivecorrectoutput(unittest.TestCase):
+
+    def test_getting_all_card_from_url(self):
+        self.assertIsInstance(card_fetcher.get_all_card_from_search(
+            'https://api.scryfall.com/cards/search?q=e:m19'), list)
+
+    def test_getting_pandas_dataframes(self):
+        self.assertIsInstance(card_fetcher.get_set('m19'), type(pd.DataFrame()))
+
+
+if __name__ == '__main__':
+    unittest.main()
