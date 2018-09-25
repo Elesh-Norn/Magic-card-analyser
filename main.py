@@ -1,16 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
+import tkinter_logic
 import matplotlib
 matplotlib.use("TkAgg")
-import seaborn as sns
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-from matplotlib.figure import Figure
 import card_fetcher
 import Graph_functions
 
 # GLOBALS
-LARGE_FONT = ("Verdana", 12)
 
+LARGE_FONT = ("Verdana", 12)
 
 class The_app(tk.Tk):
 
@@ -18,7 +17,7 @@ class The_app(tk.Tk):
         # Inherited class init
         tk.Tk.__init__(self, *args, **kwargs)
 
-        #tk.Tk.iconbitmap(self, default="fox_icon.ico")
+        tk.Tk.iconbitmap(self, default="fox_icon.ico")
         tk.Tk.wm_title(self, "MagicApp")
 
         container = tk.Frame(self)
@@ -53,9 +52,7 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Starting Page", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        button = ttk.Button(self, text='Visit Page 1',
-                           command = lambda: controller.show_frame(
-                               PageOne))
+        button = tkinter_logic.Switch_set_button("Magic Core set 2019", 'm19')
         button.pack()
 
         button2 = ttk.Button(self, text='Pie Plot',
@@ -99,10 +96,7 @@ class PageTwo(tk.Frame):
                             command=lambda: controller.show_frame(PageOne))
         button2.pack()
 
-        df = card_fetcher.get_all_standard()
-
-
-        canvas = FigureCanvasTkAgg(Graph_functions.pie_graph(df, "rarity"), self)
+        canvas = FigureCanvasTkAgg(Graph_functions.pie_graph(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity"), self)
         canvas.show()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
