@@ -11,6 +11,15 @@ import Graph_functions
 
 LARGE_FONT = ("Verdana", 12)
 
+def draw_canvas(self, function):
+    canvas = FigureCanvasTkAgg(function, self)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+
+    toolbar = NavigationToolbar2TkAgg(canvas, self)
+    toolbar.update()
+    canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
 class The_app(tk.Tk):
 
     def __init__(self, *args, **kwargs):
@@ -52,8 +61,6 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Starting Page", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        button = tkinter_logic.Switch_set_button("Magic Core set 2019", 'm19')
-        button.pack()
 
         button2 = ttk.Button(self, text='Pie Plot',
                             command=lambda: controller.show_frame(
@@ -92,17 +99,26 @@ class PageTwo(tk.Frame):
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
-        button2 = ttk.Button(self, text="Page One",
-                            command=lambda: controller.show_frame(PageOne))
-        button2.pack()
 
         canvas = FigureCanvasTkAgg(Graph_functions.pie_graph(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity"), self)
         canvas.show()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
+        button = tkinter_logic.Switch_set_button("Magic Core set 2019", 'm19')
+        button.pack()
+        button2 = ttk.Button(self, text="Destroy",
+                             command=lambda: canvas.get_tk_widget().destroy())
+        button2.pack()
+
+        button3 = ttk.Button(self, text="Draw",
+                             command=lambda: draw_canvas(self, Graph_functions.
+                                                         pie_graph(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity")))
+        button3.pack()
+
         toolbar = NavigationToolbar2TkAgg(canvas, self)
         toolbar.update()
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
 
 
 class PageThree(tk.Frame):
@@ -117,14 +133,22 @@ class PageThree(tk.Frame):
                                  StartPage))
         button1.pack()
 
-        df = card_fetcher.get_set('m19')
-        canvas = FigureCanvasTkAgg(Graph_functions.swarmplot(df, "rarity", "usd"), self)
-        canvas.show()
+        canvas = FigureCanvasTkAgg(Graph_functions.swarmplot(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity", "usd"), self)
+        canvas.draw()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
         toolbar = NavigationToolbar2TkAgg(canvas, self)
         toolbar.update()
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
+        button2 = ttk.Button(self, text="Destroy",
+                             command=lambda:canvas.get_tk_widget().destroy())
+        button2.pack()
+
+        button3 = ttk.Button(self, text="Draw",
+                             command=lambda: draw_canvas(self, Graph_functions.swarmplot(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity", "usd")))
+        button3.pack()
+
 
 
 app = The_app()

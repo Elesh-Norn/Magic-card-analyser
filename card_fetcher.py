@@ -2,7 +2,6 @@ import urllib.request
 import json
 import pandas as pd
 
-
 STANDARD_SET_LIST = ['m19', "dom", "rix", "xln" ]
 
 

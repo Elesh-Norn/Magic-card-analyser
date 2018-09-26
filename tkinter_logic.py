@@ -1,9 +1,14 @@
 import card_fetcher
 from tkinter import ttk
 import pandas as pd
+import matplotlib
+matplotlib.use("TkAgg")
 
 ALL_STANDARD_DATAFRAME = card_fetcher.get_all_standard()
 MANIPULABLE_DATAFRAME = ALL_STANDARD_DATAFRAME
+
+
+
 
 class Switch_set_button(ttk.Button):
 
@@ -28,4 +33,3 @@ class Switch_set_button(ttk.Button):
             MANIPULABLE_DATAFRAME = pd.concat([MANIPULABLE_DATAFRAME,
                                                ALL_STANDARD_DATAFRAME[
                                                    ALL_STANDARD_DATAFRAME.set == self.set_code]])
-            print(MANIPULABLE_DATAFRAME.info())
