@@ -1,5 +1,4 @@
-import redis, datetime, pandas as pd
-import card_fetcher
+import redis, datetime
 r = redis.Redis(host="localhost",
                 port=6379, decode_responses=True)
 

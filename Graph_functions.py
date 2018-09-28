@@ -28,8 +28,14 @@ def pie_graph(data, category):
     ax.add_artist(plt.Circle((0, 0), 0.7, color='white'))
 
     return fig
+from card_fetcher import get_price_list_from_redis, get_all_standard
 
-def lineplot(x, y):
+
+def price_lineplot(card_id, df):
     """in construction"""
 
-    sns.lineplot(x=x, y=y)
+    fig, ax = plt.subplots()
+    df_price =(get_price_list_from_redis(card_id))
+    sns.lineplot(x=df_price.index, y=df_price['price'], ax=ax)
+    ax.set_title(df.loc[df['id'] == card_id]['name'].values[0])
+    return fig

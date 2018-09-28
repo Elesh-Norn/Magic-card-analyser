@@ -98,9 +98,10 @@ class PageTwo(tk.Frame):
         button1 = ttk.Button(self, text="Back to Home",
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
-
-
-        canvas = FigureCanvasTkAgg(Graph_functions.pie_graph(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity"), self)
+        # Testing purposes
+        # Graph_functions.pie_graph(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity")
+        canvas = FigureCanvasTkAgg(Graph_functions.price_lineplot("5314bae2-4930-4f8a-8a52-853bc3feb88f",
+                                                                  card_fetcher.get_all_standard()), self)
         canvas.show()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
