@@ -1,7 +1,8 @@
-FROM python:3
+FROM python:3.7-alpine
+RUN apk --no-cache add musl-dev linux-headers g++
 RUN mkdir -p /pricepuller
 WORKDIR /pricepuller
 COPY requirements.txt /pricepuller/
-RUN pip install -r requirement.txt
+RUN pip install -r requirements.txt
 COPY . /pricepuller
-CMD ["python", "./App/schedule_script.py"]
+CMD ["python", "./app/schedule_script.py"]
