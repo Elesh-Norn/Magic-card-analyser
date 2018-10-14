@@ -1,13 +1,7 @@
 import redis
 import datetime
-import schedule
-import time
-import sys
-sys.path.append('../')
-from App import card_fetcher
 
-r = redis.Redis(host="localhost",
-                #port=6379, decode_responses=True)
+r = redis.Redis(host="localhost", port=6379, decode_responses=True)
 
 def get_all_redis_hash(df):
     """
@@ -19,6 +13,3 @@ def get_all_redis_hash(df):
         price = float(df.loc[df['id'] == _]['usd'].values)
         r.hset(_, today_date, price)
 
-schedule.every().day.at("15:00").do(
-    get_all_redis_hash(card_fetcher.get_all_standard())
-)

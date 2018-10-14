@@ -1,7 +1,7 @@
 import urllib.request
 import json
 import pandas as pd
-import redis_price_server
+from App.redis_price_server import r
 
 STANDARD_SET_LIST = ['m19', "dom", "rix", "xln" ]
 
@@ -68,7 +68,7 @@ def get_price_list_from_redis(card_id):
     From a card id, give the list of price from redis.
     Return a DataFrame with dates as index and 'price' as column
     """
-    df = pd.DataFrame.from_dict(redis_price_server.r.hgetall(card_id),
+    df = pd.DataFrame.from_dict(r.hgetall(card_id),
                                 orient="index", columns=['price'])
     df['price'] = df['price'].astype('float', copy=False)
     df.index.name = 'date'
