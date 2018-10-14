@@ -2,8 +2,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 def swarmplot(data, category, y):
-    """Plot x against y, boxplot+swarplot, y must be continuous
-    return a matplotlib figure object"""
+    """
+    Plot x against y, boxplot+swarplot, y must be continuous
+    return a matplotlib figure object
+    """
 
     fig, ax = plt.subplots()
     sns.boxplot(x=category, y=y, data=data, ax=ax)
@@ -12,8 +14,10 @@ def swarmplot(data, category, y):
     return fig
 
 def pie_graph(data, category):
-    """Make a donut pie graph from a repartition of values
-    return a matplotlib figure object"""
+    """
+    Make a donut pie graph from a repartition of values
+    return a matplotlib figure object
+    """
 
     # Count Data
     data = data[category].value_counts()
@@ -28,7 +32,9 @@ def pie_graph(data, category):
     ax.add_artist(plt.Circle((0, 0), 0.7, color='white'))
 
     return fig
-from card_fetcher import get_price_list_from_redis, get_all_standard
+
+
+from redis_price_server import get_price_list_from_redis
 
 
 def price_lineplot(card_id, df):

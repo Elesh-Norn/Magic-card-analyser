@@ -3,12 +3,14 @@ import json
 import pandas as pd
 from redis_price_server import r
 
-STANDARD_SET_LIST = ['m19', "dom", "rix", "xln" ]
+STANDARD_SET_LIST = ['m19', "dom", "rix", "xln", "grn"]
 
 
 def get_all_card_from_search(url):
-    """During a search, will pull other cards and add them to the
-    "data" list from scryfall. Returns it if there is no other card"""
+    """
+    During a search, will pull other cards and add them to the
+    "data" list from scryfall. Returns it if there is no other card
+    """
 
     temp_dic = urllib.request.urlopen(url).read()
     temp_dic = json.loads(temp_dic)
@@ -21,7 +23,8 @@ def get_all_card_from_search(url):
 
 
 def get_set(set):
-    """Search for card in a set (3 letter string)
+    """
+    Search for card in a set (3 letter string)
     Return a panda dataframe with card name, price in usd, rarity and set
     """
 
@@ -34,7 +37,9 @@ def get_set(set):
 
 
 def get_all_standard():
-    """Search for all card in Standard and return a Dataframe"""
+    """
+    Search for all card in Standard and return a Dataframe
+    """
     df = pd.DataFrame()
     for magics_set in STANDARD_SET_LIST:
         df = pd.concat([df, get_set(magics_set)])
@@ -42,8 +47,10 @@ def get_all_standard():
 
 
 def get_random_prices():
-    """Go search 50 random cards
-    Return a panda dataframe with price in euro and rarity"""
+    """
+    Go search 50 random cards
+    Return a panda dataframe with price in euro and rarity
+    """
 
     list_price = []
     list_rarity = []
