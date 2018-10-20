@@ -16,6 +16,7 @@ or refresh the graph for new info/data selection. Logic is distributed in
 main and tkinter_logic file. *For now this part is in pause.*
 
 *Example of the interface:*
+
 ![Exemple of the interface](https://i.imgur.com/gEgaCZQ.png)
 
 **Data gathering and manipulation**
