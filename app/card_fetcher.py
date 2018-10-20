@@ -1,7 +1,7 @@
 import urllib.request
 import json
 import pandas as pd
-from redis_price_server import r
+import app.redis_price_server
 
 STANDARD_SET_LIST = ['m19', "dom", "rix", "xln", "grn"]
 
@@ -43,6 +43,7 @@ def get_all_standard():
     df = pd.DataFrame()
     for magics_set in STANDARD_SET_LIST:
         df = pd.concat([df, get_set(magics_set)])
+
     return df
 
 
@@ -75,9 +76,14 @@ def get_price_list_from_redis(card_id):
     From a card id, give the list of price from redis.
     Return a DataFrame with dates as index and 'price' as column
     """
-    df = pd.DataFrame.from_dict(r.hgetall(card_id),
+    df = pd.DataFrame.from_dict(app.redis_price_server.r.hgetall(card_id),
                                 orient="index", columns=['price'])
     df['price'] = df['price'].astype('float', copy=False)
     df.index.name = 'date'
 
     return df
+
+def write_json_from_df(df):
+    temp_json = df.to_json(orient='table')
+    with open("truc.txt", 'w+') as temp:
+        temp.write(temp_json)

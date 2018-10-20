@@ -1,16 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
-import tkinter_logic
+from app import tkinter_logic
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-import card_fetcher
-import Graph_functions
+from app import card_fetcher
+from app import Graph_functions
 
 # GLOBALS
 
 LARGE_FONT = ("Verdana", 12)
-
 
 def draw_canvas(self, function):
     canvas = FigureCanvasTkAgg(function, self)
