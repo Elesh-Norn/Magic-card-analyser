@@ -1,0 +1,4 @@
+version : '3'
+services:
+  redis_price:
+    image: "redis"

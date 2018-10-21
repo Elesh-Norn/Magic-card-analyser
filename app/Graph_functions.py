@@ -34,7 +34,7 @@ def pie_graph(data, category):
     return fig
 
 
-from app.card_fetcher import get_price_list_from_redis
+from app.redis_price_server import get_price_list_from_redis
 
 
 def price_lineplot(card_id, df):
