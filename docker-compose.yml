@@ -1,4 +1,8 @@
 version : '3'
 services:
+  script:
+    build: .
+    ports:
+    - "8080:80"
   redis_price:
     image: "redis"
