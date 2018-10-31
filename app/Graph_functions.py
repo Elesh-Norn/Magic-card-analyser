@@ -44,4 +44,5 @@ def price_lineplot(card_id, df):
     df_price =(get_price_list_from_redis(card_id))
     sns.lineplot(x=df_price.index, y=df_price['price'], ax=ax)
     ax.set_title(df.loc[df['id'] == card_id]['name'].values[0])
+    ax.set_ylim(ymin=0)
     return fig

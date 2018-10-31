@@ -1,7 +1,6 @@
 import urllib.request
 import json
 import pandas as pd
-import app.redis_price_server
 
 STANDARD_SET_LIST = ['m19', "dom", "rix", "xln", "grn"]
 

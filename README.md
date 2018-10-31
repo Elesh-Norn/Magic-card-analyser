@@ -17,7 +17,7 @@ main and tkinter_logic file. *For now this part is in pause.*
 
 *Example of the interface:*
 
-![Exemple of the interface](https://i.imgur.com/gEgaCZQ.png)
+![Exemple of the interface](Exemple.png)
 
 **Data gathering and manipulation**
 
