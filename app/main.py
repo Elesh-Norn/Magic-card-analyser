@@ -11,14 +11,12 @@ from app import Graph_functions
 
 LARGE_FONT = ("Verdana", 12)
 
-def draw_canvas(self, function):
+def draw_canvas(self, function, object):
     canvas = FigureCanvasTkAgg(function, self)
     canvas.draw()
     canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+    object.canvas = canvas
 
-    toolbar = NavigationToolbar2TkAgg(canvas, self)
-    toolbar.update()
-    canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
 class The_app(tk.Tk):
 
@@ -55,11 +53,22 @@ class The_app(tk.Tk):
 class Graph_object:
 
     def __init__(self):
-        self.line = Graph_functions.price_lineplot("5314bae2-4930-4f8a-8a52-853bc3feb88f",
-                                                   card_fetcher.get_all_standard())
-        self.pieplot = Graph_functions.pie_graph(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity")
+       pass
 
-        self.swarmplot = Graph_functions.swarmplot(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity", "usd")
+
+    def line(self):
+        return Graph_functions.price_lineplot("5314bae2-4930-4f8a-8a52-853bc3feb88f",
+                                                   card_fetcher.get_all_standard())
+
+    def pieplot(self):
+         return Graph_functions.pie_graph(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity")
+
+
+    def swarmplot(self):
+        return Graph_functions.swarmplot(tkinter_logic.MANIPULABLE_DATAFRAME, "rarity", "usd")
+
+    def set_active_canvas(self, canvas):
+        self.canvas = canvas
 
 
 class StartPage(tk.Frame):
@@ -73,21 +82,20 @@ class StartPage(tk.Frame):
         graph_object = Graph_object()
 
         pie_plot_button = ttk.Button(self, text='Pie Plot',
-                             command=lambda: draw_canvas(self, graph_object.pieplot))
+                             command=lambda: draw_canvas(self, graph_object.pieplot(), graph_object))
         pie_plot_button.pack()
 
         boxplot_button = ttk.Button(self, text='Boxplot',
-                             command=lambda: draw_canvas(self, graph_object.swarmplot))
+                             command=lambda: draw_canvas(self, graph_object.swarmplot(), graph_object))
         boxplot_button.pack()
 
-        canvas = FigureCanvasTkAgg(Graph_functions.price_lineplot("5314bae2-4930-4f8a-8a52-853bc3feb88f",
-                                                                  card_fetcher.get_all_standard()), self)
-        canvas.draw()
-        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+        line_button = ttk.Button(self, text='Boxplot',
+                                    command=lambda: draw_canvas(self, graph_object.line(), graph_object))
+        line_button.pack()
 
-        destroy_button = ttk.Button(self, text="Destroy",
-                             command=lambda: canvas.get_tk_widget().destroy())
-        destroy_button.pack()
+        destroy2_button = ttk.Button(self, text="Destroy 2",
+                                    command=lambda: graph_object.canvas.get_tk_widget().destroy())
+        destroy2_button.pack()
 
 
 
